@@ -1,0 +1,38 @@
+{% extends "stFirstBundle::layout2.html.twig" %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    {% block title %}st platform {% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+    {% endblock %}
+
+
+    {% block body %}
+
+
+        {{ parent() }}
+
+            <div class="row">
+
+
+                <form action="{{ path('st_first_continents_edit' , { 'id' : id |raw} ) }}" method="post">
+
+                    {{ form_widget(form) }}
+                    <a href="{{ path('st_core_homepage') }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Home sweet Home
+                    </a>
+
+
+                    {{ form_rest(form) }}
+                </form>
+
+            </div>
+
+
+        </div>
+        {% block javascripts %}
+            {{ parent() }}
+        {% endblock %}
+
+    {% endblock %}

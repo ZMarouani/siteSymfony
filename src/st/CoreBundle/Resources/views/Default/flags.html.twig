@@ -1,0 +1,27 @@
+{%  extends "stCoreBundle::layout.html.twig" %}
+{%  block title %}   {{ parent()  }} {%  endblock %}
+{%  block stylesheet %} {{ parent()  }} {% endblock  %}
+
+
+{%  block body  %}
+    <div class="fluid-container">
+
+
+              {% for flag in allFlags %}
+                  <a  href="#" >
+                    <img alt="{{ flag.alt }}" src="{{ asset('uploads/img/'~flag.url|e) }}" height="100" width="150" />
+                </a>
+
+                {%  endfor %}
+
+
+
+
+
+    </div>
+
+
+{%  endblock  %}
+
+
+    {%  block javascripts   %}  {{ parent()  }} {%  endblock %}

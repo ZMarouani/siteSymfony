@@ -1,0 +1,42 @@
+
+{%  extends "stFirstBundle::layout.html.twig" %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    {% block title %}st platform {% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+    {% endblock %}
+
+
+    {%  block body  %}
+
+
+            <div class="row" >
+
+        <form action="{{ path('st_first_pays_add') }}" method="post" enctype="multipart/form-data">
+
+            {{ form_widget(form) }}
+            {{  form_rest(form)  }}
+            <a href="{{ path('st_core_homepage') }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Home
+            </a>
+
+
+
+        </form>
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+        {%  block javascripts %} {{  parent()  }} {%  endblock  %}
+    {%  endblock %}

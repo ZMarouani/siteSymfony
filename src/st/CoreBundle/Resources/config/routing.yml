@@ -1,0 +1,27 @@
+st_core_homepage:
+    path:     /
+    defaults: { _controller: stCoreBundle:Default:home  }
+
+st_core_home:
+    path: /index
+    defaults:
+        _controller: stCoreBundle:Default:index
+st_core_form_remplit:
+    path: /remplit
+    defaults:
+        _controller: stCoreBundle:Default:index
+
+st_core_test:
+    path: /test
+    defaults:
+        _controller: stCoreBundle:Default:test
+
+st_core_flags:
+    path: /flags
+    defaults:
+        _controller: stCoreBundle:Default:flags
+
+st_core_search:
+    path: /search
+    defaults:
+        _controller: stCoreBundle:Default:search

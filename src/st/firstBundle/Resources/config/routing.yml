@@ -1,0 +1,60 @@
+st_core:
+    path:   /
+    defaults:
+        _controller: stCoreBundle:Default:index
+
+st_first_continents:
+    path:  /continents/{id}
+    defaults:
+        _controller: stFirstBundle:continents:viewContinent
+    requirements:
+        id: \d+
+
+st_first_pays:
+    path:  /pays/{id}
+    defaults:
+        _controller: stFirstBundle:pays:viewPays
+    requirements:
+        id: \d+
+
+
+st_first_pays_add:
+    path:  /admin/pays/add
+    defaults:
+        _controller: stFirstBundle:pays:add
+
+
+st_first_pays_edit:
+    path:  /admin/pays/{id}/edit
+    defaults:
+        _controller: stFirstBundle:pays:edit
+    requirements:
+        id: \d+
+
+
+st_first_pays_delete:
+    path:  /admin/pays/{id}/delete
+    defaults:
+        _controller: stFirstBundle:pays:delete
+    requirements:
+        id: \d+
+
+st_first_continents_add:
+    path:  /admin/continents/add
+    defaults:
+        _controller: stFirstBundle:continents:add
+
+st_first_continents_edit:
+    path:  /admin/continents/{id}/edit
+    defaults:
+        _controller: stFirstBundle:continents:edit
+    requirements:
+        id: \d+
+
+
+st_first_continents_delete:
+    path:  /admin/continents/{id}/delete
+    defaults:
+        _controller: stFirstBundle:continents:delete
+    requirements:
+        id: \d+

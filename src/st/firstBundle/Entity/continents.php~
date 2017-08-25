@@ -1,0 +1,175 @@
+<?php
+
+namespace st\firstBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * continents
+ *
+ * @ORM\Table(name="continents")
+ * @ORM\Entity(repositoryClass="st\firstBundle\Repository\continentsRepository")
+ */
+class continents
+{
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="st\FirstBundle\Entity\pays",
+     * mappedBy="continents")
+     */
+     private $pays ;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, unique=true)
+     */
+    private $nom;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="population", type="bigint")
+     */
+    private $population;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbrPays", type="smallint")
+     */
+    private $nbrPays;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return continents
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set population
+     *
+     * @param integer $population
+     *
+     * @return continents
+     */
+    public function setPopulation($population)
+    {
+        $this->population = $population;
+
+        return $this;
+    }
+
+    /**
+     * Get population
+     *
+     * @return int
+     */
+    public function getPopulation()
+    {
+        return $this->population;
+    }
+
+    /**
+     * Set nbrPays
+     *
+     * @param integer $nbrPays
+     *
+     * @return continents
+     */
+    public function setNbrPays($nbrPays)
+    {
+        $this->nbrPays = $nbrPays;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrPays
+     *
+     * @return int
+     */
+    public function getNbrPays()
+    {
+        return $this->nbrPays;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add pay
+     *
+     * @param \st\FirstBundle\Entity\pays $pay
+     *
+     * @return continents
+     */
+    public function addPay(\st\FirstBundle\Entity\pays $pay)
+    {
+        $this->pays[] = $pay;
+
+        return $this;
+    }
+
+    /**
+     * Remove pay
+     *
+     * @param \st\FirstBundle\Entity\pays $pay
+     */
+    public function removePay(\st\FirstBundle\Entity\pays $pay)
+    {
+        $this->pays->removeElement($pay);
+    }
+
+    /**
+     * Get pays
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+}

@@ -1,0 +1,57 @@
+{%  extends "::layout.html.twig" %}
+
+{% block title %}                     {% endblock %}
+{% block stylesheets %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('startbootstrap-sb-admin-2-gh-pages/dist/css/sb-admin-2.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet"
+          type="text/css">
+
+{%  endblock %}
+    {% block body  %}
+
+
+
+
+
+        {#{% for key, messages in app.session.flashbag.all() %}#}
+        {#{% for message in messages %}#}
+        {#<div class="alert alert-{{ key }}">#}
+        {#{{ message|trans({}, 'FOSUserBundle') }}#}
+        {#</div>#}
+        {#{% endfor %}#}
+        {#{% endfor %}#}
+
+
+
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+
+{% endblock %}
+
+
+
+
+
+{% block javascripts %}
+    <!-- jQuery -->
+    <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js')}}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/metisMenu/metisMenu.min.js')}}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/dist/js/sb-admin-2.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,215 @@
+{% extends "stFirstBundle::layout.html.twig" %}
+
+    {% block title %}st platform {% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+
+
+    {% endblock %}
+
+
+    {% block body %}
+
+
+
+
+        <div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primal">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-plus-square fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="-medium"><a href="{{ path('st_first_pays_add') }}"
+                                    >Add </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primal">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-edit fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="-medium"><a
+                                            href="{{ path('st_first_pays_edit', { 'id' :pays.id|raw} ) }}"
+                                    >Edit </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primal">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-eraser fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="-medium"><a
+                                            href="{{ path('st_first_pays_delete' , { 'id' :pays.id|raw } ) }}"
+                                            onclick="return confirm('are u sure?')">Delete </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+        {% endif %}
+
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6">
+                    {{ parent() }}</div>
+                <div class="col-md-6" align="center">
+                    {#<a  href="#" >#}
+                        {#<img alt="some_text" src="{{ asset('uploads/img/Flag_of_Tunisia.svg.png') }}" />#}
+                    {#</a>#}
+                 {% if pays.picture !=null %}   <a  href="#" >
+                        <img alt="{{ pays.picture.alt }}" src="{{ asset('uploads/img/'~pays.picture.url|e) }}" height="200" width="300" />
+                    </a>
+                    {%  endif %}
+                    <h2 style="font-family: 'MS PGothic'"> nom pays
+                        : {{ pays.nom }} </h2>
+                    <h2 style="font-family: 'MS PGothic'"> population : {{ pays.population }} </h2>
+                    <h2 style="font-family: 'MS PGothic'"> continent : {{ pays.continent.nom }}</h2>
+                </div>
+
+            </div>
+
+
+        </div>
+    {% endblock %}
+
+
+
+
+
+
+
+
+
+        {% block javascripts %}
+
+            {{ parent() }}
+            <script>
+                //           $(document).ready(function()}
+                {#var data = {{ data|json_encode|raw }};#}
+                var input = document.getElementById('{{ pays.nom|json_encode }}')
+            </script>
+
+            <script>
+                /**
+                 * Created by user on 04/12/2016.
+                 */
+//
+// function myMap() {
+//     var mapCanvas = document.getElementById("map");
+//     var mapOptions = {
+//         center: new google.maps.LatLng(51.5, -0.2),
+//         zoom: 10,
+//         mapTypeId: 'roadmap'
+//     };
+//     var map = new google.maps.Map(mapCanvas, mapOptions);
+//}
+
+                function initAutocomplete() {
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: -33.8688, lng: 151.2195},
+                        zoom: 13,
+                        mapTypeId: 'roadmap'
+                    });
+
+
+// Create the search box and link it to the UI element.
+
+
+                    var input = document.getElementById('pac-input');
+                    {#$(document).ready(function(){#}
+                {#var input = {{ pays.nom|json_encode }}; }) ;#}
+
+                    var searchBox = new google.maps.places.SearchBox(input);
+                    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+// Bias the SearchBox results towards current map's viewport.
+                    map.addListener('bounds_changed', function () {
+                        searchBox.setBounds(map.getBounds());
+                    });
+
+                    var markers = [];
+// Listen for the event fired when the user selects a prediction and retrieve
+// more details for that place.
+                    searchBox.addListener('places_changed', function () {
+                        var places = searchBox.getPlaces();
+
+                        if (places.length == 0) {
+                            return;
+                        }
+
+                        // Clear out the old markers.
+                        markers.forEach(function (marker) {
+                            marker.setMap(null);
+                        });
+                        markers = [];
+
+                        // For each place, get the icon, name and location.
+                        var bounds = new google.maps.LatLngBounds();
+                        places.forEach(function (place) {
+                            if (!place.geometry) {
+                                console.log("Returned place contains no geometry");
+                                return;
+                            }
+                            var icon = {
+                                url: place.icon,
+                                size: new google.maps.Size(71, 71),
+                                origin: new google.maps.Point(0, 0),
+                                anchor: new google.maps.Point(17, 34),
+                                scaledSize: new google.maps.Size(25, 25)
+                            };
+
+                            // Create a marker for each place.
+                            markers.push(new google.maps.Marker({
+                                map: map,
+                                icon: icon,
+                                title: place.name,
+                                position: place.geometry.location
+                            }));
+
+                            if (place.geometry.viewport) {
+                                // Only geocodes have viewport.
+                                bounds.union(place.geometry.viewport);
+                            } else {
+                                bounds.extend(place.geometry.location);
+                            }
+                        });
+                        map.fitBounds(bounds);
+                    });
+                }
+
+            </script>
+
+
+        {% endblock %}
+

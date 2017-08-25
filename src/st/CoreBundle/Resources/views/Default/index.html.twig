@@ -1,0 +1,221 @@
+{% extends 'stCoreBundle::layout.html.twig' %}
+{% block stylesheets %} {{ parent() }}
+
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            {#<h2>last added country : <strong>{{ (listPays|last).nom }}</strong></h2>#}
+
+            {#<h2>last added continent :<strong>{{ (listContinents|last).nom }}</strong></h2>#}
+            {#<!------------------------------------------------------------------------------------------------------------------#}
+
+            {#<div class="row">#}
+            {#<div class="col-lg-6">#}
+            {#<div class="panel panel-default">#}
+            {#<div class="panel-heading">#}
+            {#Kitchen Sink#}
+            {#</div>#}
+            {#<!-- /.panel-heading -->#}
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>paysID</th>
+                            <th> Name</th>
+                            <th>population</th>
+                            <th>continent</th>
+                        </tr>
+                        </thead>
+
+
+                        <!-------------------------------------------TABLEAU PAYs  --------------------------------------------------->
+
+                        {#<tbody>#}
+                        {#{% for pays in listPays %}#}
+                        {#<tr>#}
+                        {#<td>{{ pays.id }}</td>#}
+                        {#<td>#}
+                        {#<a href="{{ path('st_first_pays' , { 'id' : pays.id}) }}"> {{ pays.nom }} </a>#}
+                        {#</td>#}
+                        {#<td> {{ pays.population }} </td>#}
+                        {#<td>#}
+                        {#<a href="{{ path('st_first_continents' , { 'id' : pays.continent.id|raw}) }}"> {{ pays.continent.nom }} </a>#}
+                        {#</td>#}
+                        {#</tr>#}
+                        {#{% endfor %}#}
+                        {#</tbody>#}
+
+
+                        <!---------------------------------------PAGINATION ---------------------------------------->
+
+
+                        {#<!---------------------------------------------------------------------------------------->#}
+                        <tbody>
+                        {% for pays in listPays %}
+
+
+                            <tr id="testPays">
+
+
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="dropbtn">{{ pays.id }}</button>
+                                        <div class="dropdown-content">
+                                            <a href="{{ path('st_first_pays_add') }}"
+                                            >Add </a>
+                                            <a href="{{ path('st_first_pays_edit', { 'id' :pays.id|raw} ) }}"
+                                            >Edit </a>
+                                            <a href="{{ path('st_first_pays_delete' , { 'id' :pays.id|raw } ) }}"
+                                               onclick="return confirm('are u sure?')">Delete </a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{{ path('st_first_pays' , { 'id' : pays.id}) }}"> {{ pays.nom }} </a>
+                                </td>
+                                <td> {{ pays.population }} </td>
+                                <td>
+                                    <a href="{{ path('st_first_continents' , { 'id' : pays.continent.id|raw}) }}"> {{ pays.continent.nom }} </a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <ul class="pagination">
+                        {% for p in range(1, nbPages) %}
+                            <li{% if p == page %} class="active"{% endif %}>
+
+                                <a href="{{ path('st_core_home', {'page': p}) }}">{{ p }}</a>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /.table-responsive -->
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+
+    <!
+    --------------------------------------------------------------------------------------------------------------->
+
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+
+                <tr>
+                    <th>ContinentID</th>
+                    <th> Name</th>
+                    <th>population</th>
+                    <th>countries</th>
+                </tr>
+
+                </thead>
+                <tbody>
+
+
+                {% for continents in listContinents %}
+                    <tr id="testContinent">
+                        <td>
+                            <div class="dropdown">
+                                <button class="dropbtn">{{ continents.id }}</button>
+                                <div class="dropdown-content">
+
+                                    <a href="{{ path('st_first_continents_add') }}"> Add </a>
+                                    <a href="{{ path('st_first_continents_edit' , { 'id' : continent.id |raw} ) }}">
+                                        Edit </a>
+                                    <a href="{{ path('st_first_continents_delete' , { 'id' : continent.id|raw } ) }}">
+                                        Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ path('st_first_continents' , { 'id' : continents.id}) }}"> {{ continents.nom }} </a>
+                        </td>
+                        <td> {{ continents.popSum() }} </td>
+                        <td>
+                            {{ continents.nbrPays }}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+
+
+
+
+
+
+
+
+    <!---------------------------------------------------------------------------------------------------------
+       <ul class="nav nav-pills nav-stacked">
+
+<table>
+   <tr>
+       <td>
+           <ul class="nav nav-pills nav-stacked">
+               <li class="dropdown">
+ <!-- PAGINATION FOR  COUNTRY LIST  -------------------------------------------------------------------->
+
+    {#  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h1>COUNTRIES </h1>
+          <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+
+
+      </ul>
+      <!-- END ---------------------------------------------------------------------------------------->
+
+      </li>
+      </ul>
+      </td>
+
+      <td>
+          <ul class="nav nav-pills nav-stacked">
+              <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h1>CONTINENTS </h1>
+                      <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+
+                      {% for continents in listContinents %}
+                          <li><p>
+                                  <a href="{{ path('st_first_continents' , { 'id' : continents.id|raw}) }}"> {{ continents.nom }} </a>
+                              </p></li>
+                      {% endfor %}
+                  </ul>
+              </li>
+          </ul>
+      </td>
+      </table>
+      </ul>
+      </div>
+      </div>
+
+      </div>
+      </div>  #}
+{% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        {# <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> #}
+    {% endblock %}
+

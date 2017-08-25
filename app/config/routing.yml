@@ -1,0 +1,27 @@
+st_data:
+    resource: "@stDataBundle/Resources/config/routing.yml"
+    prefix:   /data
+
+serializer:
+    resource: "@serializerBundle/Controller/"
+    type:     annotation
+    prefix:   /serializer
+
+st_user:
+    resource: "@stUserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+st_core:
+    resource: "@stCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+st_first:
+    resource: "@stFirstBundle/Resources/config/routing.yml"
+    prefix:   /first
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+
+

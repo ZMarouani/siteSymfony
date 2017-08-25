@@ -1,0 +1,162 @@
+{% extends "stFirstBundle::layout2.html.twig" %}
+
+    {% block title %}st platform {% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/morrisjs/morris.css') }}" rel="stylesheet">
+    {% endblock %}
+
+
+    {% block body %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div>
+
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primal">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-plus-square fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="-medium"><a href="{{ path('st_first_continents_add') }}"> Add </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primal">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-edit fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="-medium"><a
+                                                href="{{ path('st_first_continents_edit' , { 'id' : continent.id |raw} ) }}">
+                                            Edit </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primal">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-eraser fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="-medium"><a
+                                                href="{{ path('st_first_continents_delete' , { 'id' : continent.id|raw } ) }}"
+                                                onclick="return confirm('are u sure?')">Delete </a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        {% endif %}
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>continent population chart</strong>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="flot-chart">
+                            <div class="flot-chart-content" id="flot-pie-chart"></div>
+
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <div class="col-md-6" align="center">
+
+                    <a href="#">
+                        <img alt="#" src="{{ asset('uploads/img/continent/'~continent.nom|e~'.svg.png') }}" height="400"
+                             width="400"/>
+                    </a>
+                    {#{% if continent.nom== %}#}
+                    {#{% elseif continent.nom== %}#}
+                    {#{% elseif continent.nom== %}#}
+                    {#{% elseif continent.nom== %}#}
+                    {#{% elseif continent.nom== %}#}
+                    {#{% elseif continent.nom== %}#}
+
+
+                    {#{% elseif continent.nom== %}#}
+
+                    {#{% endif %}#}
+
+                    <h2 style="font-family: 'MS PGothic'"> continent name: {{ continent.nom }} </h2>
+                    <h2 style="font-family: 'MS PGothic'"> population : {{ continent.popSum }} </h2>
+                    <h2 style="font-family: 'MS PGothic'"> nombre de pays : {{ continent.nbrPays }}</h2>
+
+                </div>
+            </div>
+        </div>
+
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/flot/excanvas.min.js') }}"></script>
+            <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/flot/jquery.flot.js') }}"></script>
+            <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/flot/jquery.flot.pie.js') }}"></script>
+            <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/flot/jquery.flot.resize.js') }}"></script>
+            <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/flot/jquery.flot.time.js') }}"></script>
+            <script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/vendor/flot-tooltip/jquery.flot.tooltip.min.js') }}"></script>
+            {#<script src="{{ asset('startbootstrap-sb-admin-2-gh-pages/data/flot-data.js') }}"></script>#}
+            <script>
+
+                $(document).ready(function () {
+                    var data = {{ data|json_encode|raw }};
+
+
+                    var plotObj = $.plot($("#flot-pie-chart"), data, {
+                        series: {
+                            pie: {
+                                show: true
+                            }
+                        },
+                        grid: {
+                            hoverable: true
+                        },
+                        tooltip: true,
+                        tooltipOpts: {
+                            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                            shifts: {
+                                x: 20,
+                                y: 0
+                            },
+                            defaultTheme: false
+                        }
+                    });
+
+                });   </script>
+
+
+
+
+        {% endblock %}
+    {% endblock %}
